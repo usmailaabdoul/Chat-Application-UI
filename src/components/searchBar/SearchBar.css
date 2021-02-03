@@ -1,0 +1,16 @@
+.mainSearchBar {
+  background-color: rgba(249, 249, 249, 1);
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainSearchBar__input {
+  border-style: none;
+  background-color: rgba(249, 249, 249, 1);
+  width: 100%;
+  color: rgba(170, 170, 170, 1);
+  font-weight: 500;
+}

@@ -1,4 +1,7 @@
-import Chat from './chat/Chat'
-import Join from './join/Join'
+import SearchBar from './searchBar/SearchBar'
+import ThemeToggle from './themeToggle/ThemeToggle'
+import Message from './message/Message'
+import ChatInput from './chatInput/ChatInput'
 
-export {Chat, Join};
+
+export {SearchBar, ThemeToggle, Message, ChatInput};

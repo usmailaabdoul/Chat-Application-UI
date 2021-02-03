@@ -1,0 +1,39 @@
+.lightTheme__sun {
+  padding: 10px 15px;
+  background-color: #0061FE;
+  border-radius: 8px;
+  border-style: none;
+}
+
+.lightTheme__moon {
+  padding: 10px 15px;
+  background-color: transparent;
+  border-style: none;
+}
+
+.theme__container-light {
+  background-color: rgba(249, 249, 249, 1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.theme__container-dark {
+  background-color: rgba(42, 42, 42, 1);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+}
+
+.darkTheme__sun {
+  padding: 10px 15px;
+  background-color: transparent;
+  border-style: none;
+}
+
+.darkTheme__moon {
+  padding: 10px 15px;
+  background-color: #F0EEEB;
+  border-radius: 8px;
+  border-style: none;
+}
