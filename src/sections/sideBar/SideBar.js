@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState }from 'react'
 import { connect } from 'react-redux'
 
 import "./SideBar.css";
-import {} from '../../components';
+import {SearchBar, Chat} from '../../components';
 
 export const SideBar = (props) => {
+  const [search, setSearch] = useState('');
+
   return (
     <div className="sideBarContainer">
-      side bar
+      <p className="sideBar__heading">ChatBox</p>
+
+      <div className="sideBar__search">
+        <SearchBar placeholder="Search" value={search} onChange={setSearch} />
+      </div>
+
+      <div className="sideBar__chats">
+        <p className="chats__title">Conversations</p>
+        <Chat/>
+      </div>
     </div>
   )
 }

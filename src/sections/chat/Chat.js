@@ -19,27 +19,32 @@ export const Chat = ({ user }) => {
   const ENDPOIRT = 'http://localhost:5000';
 
   useEffect(() => {
-    const { name, room } = user
+    let { name, room } = user
 
-    socket = io(ENDPOIRT);
+    if (!name) {
+      name = sessionStorage.getItem('Name');
+      room = sessionStorage.getItem('Room');
+    }
+
+    // socket = io(ENDPOIRT);
 
     setName(name);
     // setRoom(room);
 
-    socket.emit('join', { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
+    // socket.emit('join', { name, room }, (error) => {
+    //   if (error) {
+    //     alert(error);
+    //   }
+    // });
 
     return () => { }
 
   }, [ENDPOIRT, user]);
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message]);
-    })
+    // socket.on('message', (message) => {
+    //   setMessages([...messages, message]);
+    // })
 
     // socket.on("roomData", ({ users }) => {
     //   setUsers(users);

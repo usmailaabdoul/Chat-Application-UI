@@ -4,3 +4,25 @@
   /* background-color: #F0EEEB; */
   background-color: rgba(251, 251, 251, 1);
 }
+
+.sideBar__heading {
+  margin: 0;
+  padding: 1rem 3rem;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sideBar__search {
+  margin: 1rem 2rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.sideBar__chats {
+  margin: 1rem 2rem;
+}
+
+.chats__title {
+  font-weight: 700;
+  font-size: 18px;
+}
