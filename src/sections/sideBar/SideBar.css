@@ -1,7 +1,7 @@
 .sideBarContainer {
-  width: 100%;
-  height: 100%;
-  /* background-color: #F0EEEB; */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background-color: rgba(251, 251, 251, 1);
 }
 
@@ -16,13 +16,35 @@
   margin: 1rem 2rem;
   border: 1px solid #eee;
   border-radius: 8px;
+  flex: 1;
 }
 
 .sideBar__chats {
-  margin: 1rem 2rem;
+  margin: 1rem 0;
 }
 
 .chats__title {
+  margin: 1rem 0rem 0rem 2rem;
   font-weight: 700;
   font-size: 18px;
+}
+
+.SideBar__verticalLine-seprator {
+  border-top: 1px solid #eee;
+}
+
+.sideBar__chats-details {
+  flex: 4.5;
+  overflow: auto;
+}
+
+.sideBar__group-details {
+  flex: 3;
+  overflow: auto;
+}
+
+.sideBar__createInput {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }

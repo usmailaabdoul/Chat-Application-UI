@@ -20,6 +20,7 @@
 
 .chatDetails {
   flex: 3;
+  display: flex
 }
 
 .verticalLine__seprator {

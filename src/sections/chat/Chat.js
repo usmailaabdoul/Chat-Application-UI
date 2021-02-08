@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import './Chat.css'
 import { SearchBar, ThemeToggle, ChatInput } from "../../components"
 import Messages from "../messages/Messages";
+import UserProfile from '../userProfile/UserProfile';
 
 let socket;
 
@@ -87,10 +88,7 @@ export const Chat = ({ user }) => {
       </div>
       <div className="verticalLine__seprator" />
       <div className="chatDetails">
-        {/* group details or profile details */}
-        <div className="mx-5">
-          details
-        </div>
+        <UserProfile />
       </div>
     </div>
   )

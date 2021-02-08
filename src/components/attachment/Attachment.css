@@ -1,0 +1,37 @@
+.attachment__container {
+  display: flex;
+  align-items: center;
+  margin: 1rem 2rem;
+}
+
+.attachment__name {
+  margin: 0;
+}
+
+.attachment__type-pdf {
+  margin-right: 10px;
+  background-color: rgb(241, 113, 78);
+  padding: 7px 5px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.attachment__type-txt {
+  margin-right: 10px;
+  background-color: rgb(236, 191, 64);
+  padding: 7px 5px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.attachment__type-siz {
+  margin-right: 10px;
+  background-color: rgb(74, 75, 157);
+  padding: 7px 5px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 10px;
+}

@@ -10,10 +10,10 @@ export const ChatInput = (props) => {
   return (
     <div className="sendMessage__input">
       <button className="sendMessage__input-icons">
-        <Paperclip size={22} color="#0061FE" style={{ transform: "rotate(45deg)" }} />
+        <Paperclip className="sendMessage__input-icon" size={22} color="#0061FE" />
       </button>
       <button className="sendMessage__input-icons">
-        <EmojiSmile size={22} color="#0061FE" style={{ marginRight: '10px' }} />
+        <EmojiSmile className="sendMessage__input-icon" size={22} color="#0061FE" style={{ marginRight: '10px' }} />
       </button>
       <input
         className="messageInput"

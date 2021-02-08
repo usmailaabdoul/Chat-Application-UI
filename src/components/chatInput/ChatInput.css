@@ -26,4 +26,17 @@
   border-radius: 100px;
   display: flex;
   align-items: center;
+  transition: transform .2s;
+}
+
+.sendMessage__button:hover {
+  transform: scale(1.2)
+}
+
+.sendMessage__input-icon {
+  transition: transform .2s;
+}
+
+.sendMessage__input-icon:hover {
+  transform: scale(1.5) rotate(45deg);
 }

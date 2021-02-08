@@ -1,0 +1,22 @@
+.group__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.group__title-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.group__container {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.group__container:hover {
+  background-color: #0061FE20;
+  cursor: pointer;
+}

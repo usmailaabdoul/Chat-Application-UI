@@ -5,9 +5,11 @@
 }
 
 .homeSidebar {
+  display: flex;
   flex: 3;
 }
 
 .homeChatSection {
+  display: flex;
   flex: 8;
 }
