@@ -1,36 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import io from 'socket.io-client';
 
 import './Chat.css'
 import { SearchBar, ThemeToggle, ChatInput } from "../../components"
 import Messages from "../messages/Messages";
 import UserProfile from '../userProfile/UserProfile';
+import SocketIo from '../../utils/socketIo';
 
-let socket;
-
-export const Chat = ({ user }) => {
+export const Chat = ({ inbox, user }) => {
+  console.log({inbox})
   const [search, setSearch] = useState('');
   const [name, setName] = useState('')
-  // const [room, setRoom] = useState('')
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  // const [users, setUsers] = useState('');
-
-  const ENDPOIRT = 'http://localhost:5000';
 
   useEffect(() => {
-    let { name, room } = user
-
-    if (!name) {
-      name = sessionStorage.getItem('Name');
-      room = sessionStorage.getItem('Room');
-    }
-
-    // socket = io(ENDPOIRT);
-
-    setName(name);
-    // setRoom(room);
 
     // socket.emit('join', { name, room }, (error) => {
     //   if (error) {
@@ -38,25 +22,24 @@ export const Chat = ({ user }) => {
     //   }
     // });
 
-    return () => { }
-
-  }, [ENDPOIRT, user]);
+  }, [inbox, user]);
 
   useEffect(() => {
-    // socket.on('message', (message) => {
-    //   setMessages([...messages, message]);
-    // })
+
+    let message = SocketIo.recieveMessages(inbox._id);
+    console.log('response', {message})
+    // setMessages([...messages, message]);
 
     // socket.on("roomData", ({ users }) => {
     //   setUsers(users);
     // });
-  }, [messages]);
+  }, [inbox, user]);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
-    if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''))
+    if (message.length > 0) {
+      SocketIo.sendMessage(inbox._id, message)
     }
   }
 
@@ -74,16 +57,26 @@ export const Chat = ({ user }) => {
           </div>
 
           <div className="chatMessages-heading">
-            <p className="m-0 chatMessages__heading-title">Chats with</p>
-            <h4 className="chatMessages__header-name">Usmaila Abdoul</h4>
+            {inbox.recieverId && (
+              <>
+                <p className="m-0 chatMessages__heading-title">Chats with</p>
+                <h4 className="chatMessages__header-name">{inbox.reciever.name}</h4>
+              </>
+            )}
           </div>
         </div>
         <div style={{ overflow: 'auto' }}>
-          <Messages messages={messages} name={name} />
+          {!inbox.recieverId ? (
+            <div className="d-flex align-items-center justify-content-center h-100">
+              <h4>no chats selected</h4>
+            </div>
+          ) : (
+              <Messages messages={messages} id={inbox.id} />
+            )}
         </div>
 
         <div className="">
-          <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
+          <ChatInput message={message} setMessage={setMessage} sendMessage={(e) => sendMessage(e)} />
         </div>
       </div>
       <div className="verticalLine__seprator" />
@@ -94,8 +87,9 @@ export const Chat = ({ user }) => {
   )
 }
 
-const mapStateToProps = ({auth}) => ({
-  user: auth.user
+const mapStateToProps = ({ auth, chat }) => ({
+  user: auth.user,
+  inbox: chat.activeChat,
 })
 
 const mapDispatchToProps = {
