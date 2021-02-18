@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import querystring from 'query-string';
 import io from 'socket.io-client';
 
 import './Chat.css';
@@ -8,6 +7,8 @@ import InfoBar from '../infoBar/InfoBar';
 import Input from '../input/Input';
 import Messages from '../messages/Messages';
 import TextContainer from '../textContainer/TextContainer';
+
+import SocketIo from '../../../utils/socketIo';
 
 let socket;
 
@@ -21,28 +22,32 @@ const Chat = ({ location }) => {
   const ENDPOIRT = 'http://localhost:5000';
 
   useEffect(() => {
-    const { name, room } = querystring.parse(location.search)
+    const name = 'abdoul';
+    const room = 'abdoul';
 
     socket = io(ENDPOIRT);
 
     setName(name);
     setRoom(room);
 
-    socket.emit('join', { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
+    SocketIo.join(name, room)
+    // socket.emit('join', { name, room }, (error) => {
+    //   if (error) {
+    //     alert(error);
+    //   }
+    // });
 
     return () => { }
 
   }, [ENDPOIRT, location]);
 
   useEffect(() => {
+    // let message = SocketIo.recieveMessages();
     socket.on('message', (message) => {
       setMessages([...messages, message]);
     })
 
+    // let users = SocketIo.roomData();
     socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
@@ -52,7 +57,8 @@ const Chat = ({ location }) => {
     event.preventDefault();
 
     if (message) {
-      socket.emit('sendMessage', message, () => setMessage(''))
+      // socket.emit('sendMessage', message, () => setMessage(''))
+      SocketIo.sendMessage('id', message)
     }
   }
 

@@ -6,33 +6,29 @@ import { SearchBar, ThemeToggle, ChatInput } from "../../components"
 import Messages from "../messages/Messages";
 import UserProfile from '../userProfile/UserProfile';
 import SocketIo from '../../utils/socketIo';
+import io from 'socket.io-client';
+
+let socket;
+
+socket = io('http://localhost:5000');
 
 export const Chat = ({ inbox, user }) => {
-  console.log({inbox})
+  console.log({ inbox })
   const [search, setSearch] = useState('');
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    let room = 'room_' + inbox._id;
+    console.log({ room });
 
-    // socket.emit('join', { name, room }, (error) => {
-    //   if (error) {
-    //     alert(error);
-    //   }
-    // });
+    socket.on(room, (message) => {
+      console.log({ message })
+      // setMessages([...messages, message]);
+    })
 
-  }, [inbox, user]);
 
-  useEffect(() => {
-
-    let message = SocketIo.recieveMessages(inbox._id);
-    console.log('response', {message})
-    // setMessages([...messages, message]);
-
-    // socket.on("roomData", ({ users }) => {
-    //   setUsers(users);
-    // });
   }, [inbox, user]);
 
   const sendMessage = (event) => {

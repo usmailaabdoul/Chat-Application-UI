@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import "./Home.css"
-import { SideBar, Chat } from "../../sections";
-import { } from '../../components';
+import { SideBar, Chat} from "../../sections";
+// import Chat from '../../components/previousApp designs/chat/Chat';
 
 export const Home = (props) => {
   return (
