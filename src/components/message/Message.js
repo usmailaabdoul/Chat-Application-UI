@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import './Message.css'
 
 export const Message = (props) => {
-  const { message, id, user } = props;
+  const { message, user } = props;
 
-  let isUser = false;
+  let isMyMessage = false;
 
-  if(id === user.id) {
-    isUser = true;
+  if(message.sender._id === user.id) {
+    isMyMessage = true;
   }
 
   return (
-    <div className={isUser ? "message__container message__container-right" : "message__container message__container-left"} >
-      <div className={isUser ? "right-message" : "left-message"}>
-        <p className="m-0">{message}</p>
+    <div className={isMyMessage ? "message__container message__container-right" : "message__container message__container-left"} >
+      <div className={isMyMessage ? "right-message" : "left-message"}>
+        <p className="m-0">{message.message}</p>
       </div>
-      <p className={isUser ? "right-message-time" : "left-message-time"}>11:50</p>
+      <p className={isMyMessage ? "right-message-time" : "left-message-time"}>11:50</p>
     </div>
   )
 }

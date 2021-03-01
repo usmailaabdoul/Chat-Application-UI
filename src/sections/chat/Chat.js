@@ -20,16 +20,25 @@ export const Chat = ({ inbox, user }) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    setMessages(inbox.messages)
+  }, [inbox]);
+
+  useEffect(() => {
     let room = 'room_' + inbox._id;
     console.log({ room });
 
     socket.on(room, (message) => {
       console.log({ message })
-      // setMessages([...messages, message]);
+      console.log({ messages })
+      let msgs = messages;
+      msgs.push(message);
+
+      setMessages(msgs);
     })
 
-
-  }, [inbox, user]);
+    console.log({ messages })
+    
+  }, [inbox, user, messages]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -39,45 +48,15 @@ export const Chat = ({ inbox, user }) => {
     }
   }
 
+  console.log({messages})
   return (
-    <div className="mainChat">
-      <div className="chat">
-        <div>
-          <div className="chat__header">
-            <div className="searchBar__container" style={{ flex: 1 }}>
-              <SearchBar placeholder="Search for a message..." value={search} onChange={setSearch} />
-            </div>
-            <div>
-              <ThemeToggle />
-            </div>
-          </div>
-
-          <div className="chatMessages-heading">
-            {inbox.recieverId && (
-              <>
-                <p className="m-0 chatMessages__heading-title">Chats with</p>
-                <h4 className="chatMessages__header-name">{inbox.reciever.name}</h4>
-              </>
-            )}
-          </div>
-        </div>
-        <div style={{ overflow: 'auto' }}>
-          {!inbox.recieverId ? (
-            <div className="d-flex align-items-center justify-content-center h-100">
-              <h4>no chats selected</h4>
-            </div>
-          ) : (
-              <Messages messages={messages} id={inbox.id} />
-            )}
-        </div>
-
-        <div className="">
-          <ChatInput message={message} setMessage={setMessage} sendMessage={(e) => sendMessage(e)} />
-        </div>
+    <div id="messagesId" className="d-flex  flex-column justify-content-center" style={{ flex: 1 }}>
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        <Messages messages={messages} />
       </div>
-      <div className="verticalLine__seprator" />
-      <div className="chatDetails">
-        <UserProfile />
+
+      <div>
+        <ChatInput message={message} setMessage={setMessage} sendMessage={(e) => sendMessage(e)} />
       </div>
     </div>
   )

@@ -4,12 +4,12 @@ import "./Messages.css";
 import { Message } from '../../components';
 
 export const Messages = (props) => {
-  const {messages, id} = props;
+  const {messages} = props;
 
   return (
     <div className="messages__container">
       <div className="messages">
-        {messages.map((message, i) => <div key={i}><Message message={message} id={id} /></div>)}
+        {messages.map((message, i) => <div key={i}><Message message={message} /></div>)}
       </div>
     </div>
   )
