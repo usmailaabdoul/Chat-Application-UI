@@ -24,10 +24,10 @@ export const Chat = ({ inbox, user }) => {
     setMessages(inbox.messages)
   }, [inbox]);
 
-  useEffect(() => {
-    socket = io('http://localhost:5000');
-    socket.join(room);
-  }, [room])
+  // useEffect(() => {
+  //   socket = io('http://localhost:5000');
+  //   socket.join(room);
+  // }, [room])
 
   useEffect(() => {
     socket.on(room, (message) => {
