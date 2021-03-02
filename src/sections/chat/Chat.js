@@ -10,23 +10,26 @@ import io from 'socket.io-client';
 
 let socket;
 
-socket = io('http://localhost:5000');
-
 export const Chat = ({ inbox, user }) => {
   console.log({ inbox })
   const [search, setSearch] = useState('');
   // const [name, setName] = useState('')
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
+  
+  const room = 'room_' + inbox._id;
+  console.log({ room });
 
   useEffect(() => {
     setMessages(inbox.messages)
   }, [inbox]);
 
   useEffect(() => {
-    let room = 'room_' + inbox._id;
-    console.log({ room });
+    socket = io('http://localhost:5000');
+    socket.join(room);
+  }, [room])
 
+  useEffect(() => {
     socket.on(room, (message) => {
       console.log({ message })
       console.log({ messages })
