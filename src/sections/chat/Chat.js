@@ -2,59 +2,40 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import './Chat.css'
-import { SearchBar, ThemeToggle, ChatInput } from "../../components"
+import { ChatInput } from "../../components"
 import Messages from "../messages/Messages";
-import UserProfile from '../userProfile/UserProfile';
-import SocketIo from '../../utils/socketIo';
-import io from 'socket.io-client';
-
-let socket;
+import { socket } from '../../utils/socketIo';
 
 export const Chat = ({ inbox, user }) => {
-  console.log({ inbox })
   const [search, setSearch] = useState('');
-  // const [name, setName] = useState('')
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
-  const room = 'room_' + inbox._id;
-  console.log({ room });
-
   useEffect(() => {
-    setMessages(inbox.messages)
-  }, [inbox]);
+    setMessages(inbox.messages);
 
-  useEffect(() => {
-    socket = io('http://localhost:5000');
+    let room = 'inbox_' + inbox._id;
 
     socket.emit('join', { room }, (error) => {
       if (error) {
         alert(error);
       }
     });
-
-  }, [room])
+  }, [inbox, user]);
 
   useEffect(() => {
-    socket.on('message', (message) => {
-      // console.log({ message })
-      // console.log({ messages })
+    socket.on('message', message => {
       let msgs = messages;
       msgs.push(message);
 
       setMessages(msgs);
-    })
+    });
 
-    // console.log({ messages })
-
-  }, [inbox, user, messages]);
+  }, [messages]);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
-    // if (message.length > 0) {
-    //   SocketIo.sendMessage(inbox._id, message)
-    // }
     const url = `http://localhost:5000/api/v1/inbox/${inbox._id}/${user._id}?message=${message}`
     fetch(url, {
       method: 'POST',
@@ -69,9 +50,9 @@ export const Chat = ({ inbox, user }) => {
         return Promise.all([statusCode, responseJson]);
       })
       .then((res) => {
-        // const statusCode = res[0];
         const responseJson = res[1];
         console.log({ responseJson })
+        setMessage('');
       })
       .catch((error) => {
         console.log({ error })

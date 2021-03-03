@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {login} from '../../redux/actions/auth';
+import { login } from '../../redux/actions/auth';
 
 import "./Login.css";
 
 export const Login = (props) => {
-  const {history} = props;
+  const { history } = props;
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = () => {
-
-    const body = {email, password}
+    setIsLoading(true)
+    const body = { email, password }
     const url = 'http://localhost:5000/api/v1/auth/login'
     fetch(url, {
       method: 'POST',
@@ -31,21 +32,28 @@ export const Login = (props) => {
         const statusCode = res[0];
         const responseJson = res[1];
 
-        console.log({res})
-        props.login(responseJson.user)
-        
-        sessionStorage.setItem('Token', responseJson.token);
-        sessionStorage.setItem('User', JSON.stringify(responseJson.user));
+        console.log({ res });
 
-        history.push('/home');
+        setIsLoading(false)
+        if (statusCode === 200) {
+          props.login(responseJson.user)
 
-        if (statusCode) {
-          console.log({statusCode})
+          sessionStorage.setItem('Token', responseJson.token);
+          sessionStorage.setItem('User', JSON.stringify(responseJson.user));
+
+          return history.push('/home');
         }
+
+        return alert('something unexpexted happened')
       })
       .catch((error) => {
-        console.log({error})
+        console.log({ error })
+        setIsLoading(false)
       })
+  }
+
+  const checkDisabled = () => {
+    return (!password === '' || !email === '');
   }
 
   return (
@@ -58,9 +66,16 @@ export const Login = (props) => {
         <div>
           <input placeholder="Password" className="loginInput mt-20" type="password" onChange={(event) => setPassword(event.target.value)} />
         </div>
-        <Link onClick={e => (!email || !password) ? e.preventDefault() : login()} to={'/login'}>
-          <button className={'button mt-20'} type="submit">Login</button>
-        </Link>
+        {isLoading ? (
+          <div className="d-flex justify-content-center align-items-center mt-2">
+            <div className="spinner-border" style={{ width: '1.5rem', height: '1.5rem', color: '#0061FE' }} role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        ) :
+          (
+            <button className={'button mt-20'} disable={checkDisabled()} onClick={(e) => { !checkDisabled() && login(e) }}>Login</button>
+          )}
 
         <Link to={'/register'}>
           <button className={'text-button mt-20'} type="submit">Don't have an account? Register</button>
@@ -74,4 +89,4 @@ const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps, { login })(Login)

@@ -5,7 +5,7 @@ import { Bell, ChevronRight } from 'react-bootstrap-icons';
 import { Attachment } from '../../components';
 import "./UserProfile.css";
 
-export const UserProfile = (props) => {
+export const UserProfile = ({user}) => {
 
   return (
     <div className="UserProfile__container">
@@ -16,15 +16,15 @@ export const UserProfile = (props) => {
         </div>
         <div className="profile__details">
           <img className="profile__image" src="https://static.toiimg.com/thumb/msid-80622193,width-640,resizemode-4,imgsize-59818/80622193.jpg" alt="profile" />
-          <p className="profile__name">Tim Cook</p>
+          <p className="profile__name">{user.name}</p>
           <ChevronRight className="profile__name-chevron" />
         </div>
       </div>
 
       <div className="chatProfile__container">
         <img className="chatProfile__image" src="https://static.toiimg.com/thumb/msid-80622193,width-640,resizemode-4,imgsize-59818/80622193.jpg" alt="chatProfile" />
-        <p className="chatProfile__name">Usmaila Abdoul</p>
-        <p className="chatProfile__nickname">@abdoul_usma_ila</p>
+        <p className="chatProfile__name">{user.name}</p>
+        <p className="chatProfile__nickname">{user.email}</p>
       </div>
       <div className="chatProfile__verticalLine-seprator" />
  
@@ -55,8 +55,8 @@ export const UserProfile = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-
+const mapStateToProps = ({auth}) => ({
+  user: auth.user,
 })
 
 const mapDispatchToProps = {
