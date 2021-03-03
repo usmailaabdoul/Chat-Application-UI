@@ -7,9 +7,19 @@ import { SearchBar, ThemeToggle, ChatInput } from "../../components";
 import { UserProfile } from '../../sections';
 // import Chat from '../../components/previousApp designs/chat/Chat';
 
-export const Home = ({ inbox }) => {
+export const Home = ({ inbox, user }) => {
   const [search, setSearch] = useState('');
 
+  let u;
+  if (user && inbox.reciever) {
+    if (user._id === inbox.reciever._id) {
+      u = inbox.sender
+    } else {
+      u = inbox.reciever;
+    }
+  }
+
+  console.log({ u })
   return (
     <div className="homeContainer">
       <div className="homeSidebar">
@@ -32,7 +42,7 @@ export const Home = ({ inbox }) => {
                 {inbox.recieverId && (
                   <>
                     <p className="m-0 chatMessages__heading-title">Chats with</p>
-                    <h4 className="chatMessages__header-name">{inbox.reciever.name}</h4>
+                    <h4 className="chatMessages__header-name">{u.name}</h4>
                   </>
                 )}
               </div>

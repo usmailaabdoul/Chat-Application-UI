@@ -130,11 +130,12 @@ export const SideBar = (props) => {
       <div className="sideBar__chats-details" >
         {inboxes && inboxes.map((inbox, key) => {
           let u;
-          if (user.id === inbox.reciever.id) {
-            u = inbox.reciever
+          if (user._id === inbox.reciever._id) {
+            u = inbox.sender
           } else {
             u = inbox.reciever;
           }
+
 
           return (
             <div key={key}>

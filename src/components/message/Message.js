@@ -5,10 +5,10 @@ import './Message.css'
 
 export const Message = (props) => {
   const { message, user } = props;
-
+  console.log({message})
   let isMyMessage = false;
 
-  if(message.sender._id === user.id) {
+  if(message.sender && message.sender._id === user.id) {
     isMyMessage = true;
   }
 

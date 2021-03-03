@@ -25,7 +25,7 @@ const Chat = ({ location }) => {
     const name = 'abdoul';
     const room = 'abdoul';
 
-    socket = io(ENDPOIRT);
+    // socket = io(ENDPOIRT);
 
     setName(name);
     setRoom(room);

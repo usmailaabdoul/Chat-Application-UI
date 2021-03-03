@@ -4,7 +4,7 @@ const ENDPOIRT = 'http://localhost:5000';
 
 let socket;
 
-socket = io(ENDPOIRT);
+// socket = io(ENDPOIRT);
 
 class SocketIo {
   constructor(socket) {
