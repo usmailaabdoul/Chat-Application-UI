@@ -14,14 +14,12 @@ export const Chat = ({ inbox, user }) => {
   useEffect(() => {
     setMessages(inbox.messages);
 
-    let room = 'inbox_' + inbox._id;
-
-    socket.emit('join', { room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-  }, [inbox, user]);
+    return () => {
+      console.log('disconnect socket here');
+      const room = 'inbox_' + inbox._id;
+      socket.emit('disconnect_from_channel', { room, user_id: user._id });
+    }
+  }, [inbox]);
 
   useEffect(() => {
     socket.on('message', message => {

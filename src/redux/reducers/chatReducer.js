@@ -7,16 +7,15 @@ const INITIAL_STATE = {
 const ChatReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'ACTIVE_CHAT':
-      const inbox = action.payload;
-      const room = 'room_' + inbox._id;
-      
-      socket.emit('join', { room }, (error) => {
+      const {chat, user} = action.payload;
+      const room = 'inbox_' + chat._id;
+      socket.emit('join', { room, user_id: user._id }, (error) => {
         if (error) {
           alert(error);
         }
       });
 
-      return { ...state, activeChat: inbox };
+      return { ...state, activeChat: chat };
 
     default:
       return state;
